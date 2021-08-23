@@ -105,24 +105,8 @@ public class Main {
     }
 }
     
-    /*public static void pasarLineasNuevoArchivo (String ruta) {
-        String unaRuta = "C:\\Users\\Vladimir\\Desktop\\Reto8\\Registro_Aleatorio\\Aleatorios.txt";
-        try {
-            escribirArchivoInicial (unaRuta);
-        }catch (IOException e){
-            System.out.println("Hubo un error al acceder al archivo" + e.getMessage());
-        }
-                        
-    }
-    public static void escribirArchivoInicial (String ruta) throws IOException {
-        String cadena = "Esta es la posicion 01\r\nEsta es la posicion 02\r\n";
-        //"C:\\Users\\Vladimir\\Desktop\\Reto8\\Registro_Aleatorio\\aleatorio.txt"
-        Path miRuta = Paths.get(ruta);
-        byte [] bytesCadena = cadena.getBytes(); 
-        Files.write(miRuta, bytesCadena);
-        
-        
-    }*/
+ 
+
     
     public static void leerPorLineasSeparando(String ruta) {
         String[] palabras;
