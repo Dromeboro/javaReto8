@@ -3,24 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.tekknia.mavenproject8;
 
+
+/*Java reto 8 Universidad de Antioquia Alejandro restrepo - Vladimir Ortega*/
+
+
+package Reto8;
+
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.nio.file.Paths;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Vladimir
  */
-public class Main {
-    public static void main(String[] args) {
-        String unaRuta = "C:\\Users\\Vladimir\\Desktop\\Reto8\\TSLA - copia.txt";
-        leerPorBytes (unaRuta);
+public class Reto8_ParaEntregar {
+    
+    public static void main(String[] args) throws IOException {
+        String ruta = "C:\\Users\\Vladimir\\Desktop\\Reto8\\TSLA - copia.txt";
+        
+        leerPorBytes (ruta);
         System.out.println();
-        leerPorLineas(unaRuta);
+        leerArchivo(ruta);
         System.out.println();
-        //pasarLineasNuevoArchivo (unaRuta);
+       // concepto_accion(ruta);
        // System.out.println();
-        pasarNuevoArchivo (unaRuta);
-        System.out.println();
-        leerPorLineasSeparando(unaRuta);
+        numeral3 (ruta);
         System.out.println();
         
     }
@@ -37,108 +54,86 @@ public class Main {
             }
         
     }
-    public static void leerPorLineas(String ruta) {
+    public static void leerArchivo(String ruta) {
        
-        Path miRuta = Paths.get(ruta);
-        
-        List <String> lineasArchivo;
-        try {
+   // Fichero del que queremos leer
+		File fichero = new File("C:\\Users\\Vladimir\\Desktop\\Reto8\\TSLA - copia.txt");
+		Scanner s = null;
+
+		try {
+			
+			System.out.println("... Leemos el contenido del fichero ...");
+			s = new Scanner(fichero);
+                        
+                        
+                   
+			// Leemos linea a linea el fichero
+			while (s.hasNextLine()) {
+				String linea = s.nextLine(); 	
+				System.out.println(linea);      
+                                                               
+			}
+
+		} catch (FileNotFoundException ex) {
+			System.out.println("Mensaje: " + ex.getMessage());
+		} finally {
+			
+			try {
+				if (s != null)
+					s.close();
+			} catch (Exception ex2) {
+				System.out.println("Mensaje 2: " + ex2.getMessage());
+			}
+		}
+	}
+    
+    public static String concepto_accion(String ruta) throws IOException{
+           
+            try {
+                
+            FileInputStream file = new FileInputStream(new File("C:\\Users\\Vladimir\\Desktop\\Reto8\\TSLA - copia.txt"));
+                        
+           
+            double celda = Double.parseDouble(ruta);
+           
+             if (celda<200) return "MUY BAJO";
+            {
+                         
+            }
+            if (200<=celda && celda<300) return " BAJO";
+            {
+            }
+            if (300<=celda && celda<500) return " MEDIO";
+            {
+            }   
+            if (500<=celda && celda<600) return " ALTO";
+            {    
+            } 
+            if (600<=celda) return " MUY ALTO";
+            {    
+            }  
+         
+                                    
+            file.close();
             
-            lineasArchivo = Files.readAllLines(miRuta);
-            for (String lineaActual : lineasArchivo){
-                System.out.println(lineaActual);
-                }
+            FileOutputStream output = new FileOutputStream("C:\\Users\\Vladimir\\Desktop\\Reto8\\TSLA111.txt");
+            //file.write(output);
+            output.close();
             
-        }catch(IOException e){
-            System.out.println("Hubo un error al acceder el archivo"+ e.getMessage());
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Excel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
+    
+    }
+    
+     public static void numeral3(String ruta) {
+    
+         System.out.println("Responda: ¿Qué utilidad tiene aplicar uno u otro de los dos métodos anteriores?");
+         System.out.println("R//= Considero mucho mejor el primer metodo, porque permite leer linea por linea,\n y cada byte ser "
+                 + "tenido en cuenta mas facilmente evitando menos errores o perdida de informacion");
          
     }
-    
-    public class NuevoArchivo{
-        private String cedula;
-	private String nombres;
-   
-    public NuevoArchivo() {
-        
-        }
-        public String getCedula() {
-		return cedula;
-	}
-	
-	public void setCedula(String cedula) {
-		this.cedula = cedula;
-	}
-	public String getNombres() {
-		return nombres;
-	}
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
-	}
-    }
-     
-    
-    public static void pasarNuevoArchivo (ArrayList lista) {
-        FileWriter flwriter  = null;
-        try {
-            flwriter = new FileWriter("C:\\Users\\Vladimir\\Desktop\\Reto8\\Registro_Aleatorio\\Aleatorios.txt");
-            BufferedWriter bfwriter = new BufferedWriter(flwriter);
-            for (NuevoArchivo nuevoArchivo : lista) {
-               bfwriter.write(nuevoArchivo.getCedula() + "," + nuevoArchivo.getNombres() + "," + "\n");
-            }
-            bfwriter.close();
-            System.out.println("Archivo creado satisfactoriamente..");
-
-
-        }catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            if (flwriter != null) {
-            try {
-                  flwriter.close();
-                 }catch (IOException e) {
-                    e.printStackTrace();
-            }
-            
-        }
-        
-    }
-}
-    
-    /*public static void pasarLineasNuevoArchivo (String ruta) {
-        String unaRuta = "C:\\Users\\Vladimir\\Desktop\\Reto8\\Registro_Aleatorio\\Aleatorios.txt";
-        try {
-            escribirArchivoInicial (unaRuta);
-        }catch (IOException e){
-            System.out.println("Hubo un error al acceder al archivo" + e.getMessage());
-        }
-                        
-    }
-    public static void escribirArchivoInicial (String ruta) throws IOException {
-        String cadena = "Esta es la posicion 01\r\nEsta es la posicion 02\r\n";
-        //"C:\\Users\\Vladimir\\Desktop\\Reto8\\Registro_Aleatorio\\aleatorio.txt"
-        Path miRuta = Paths.get(ruta);
-        byte [] bytesCadena = cadena.getBytes(); 
-        Files.write(miRuta, bytesCadena);
-        
-        
-    }*/
-    
-    public static void leerPorLineasSeparando(String ruta) {
-        String[] palabras;
-        Path miRuta = Paths.get(ruta);
-        
-         List <String> lineasArchivo;
-        try {
-            lineasArchivo = Files.readAllLines(miRuta);
-            for (String lineaActual : lineasArchivo){
-                palabras = lineaActual.split(" ");
-                System.out.println("La primera palabra es " + palabras[0] + "La segunda palabra es "+ palabras[1]);
-            }
-            
-        }catch(IOException e){
-            System.out.println("Hubo un error al acceder el archivo"+ e.getMessage());
-        }
-    
-}
+      
 }
